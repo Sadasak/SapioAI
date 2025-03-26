@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Sapio AI - Dashboard</title>
+</head>
+<body class="bg-gray-200 flex flex-col items-center p-8 space-y-8">
+
+    <!-- Header -->
+    <header class="w-full max-w-4xl bg-gray-300 p-4 rounded-lg flex justify-between items-center">
+        <div class="flex space-x-6 text-xs text-gray-700">
+            <div class="px-4 py-2 bg-gray-500 rounded flex items-center justify-center">XP: 2500</div>
+            <div class="px-4 py-2 bg-gray-500 rounded flex items-center justify-center">Streak: 70🔥</div>
+            <div class="px-4 py-2 bg-gray-500 rounded flex items-center justify-center">Coins: 300💰</div>
+        </div>
+        <button id="community" class="px-4 py-2 bg-gray-500 text-white rounded-lg text-xs">
+            Community (Skool)
+        </button>
+    </header>
+
+    <!-- Roadmap Section -->
+    <section class="w-full max-w-4xl bg-gray-300 p-6 rounded-lg">
+        <div class="w-full h-6 bg-gray-500 mb-4 flex items-center justify-center text-xs text-gray-700">
+            Machine Learning Roadmap
+        </div>
+        
+        <!-- First Row -->
+        <div class="flex justify-between items-center relative mb-6">
+            <div class="px-3 py-2 bg-gray-500 rounded-lg text-xs text-white cursor-pointer step" data-step="1">
+                Conquer the World of Linear Algebra
+            </div>
+            <div class="w-20 h-2 bg-gray-500"></div>
+            <div class="px-3 py-2 bg-gray-500 rounded-lg text-xs text-white cursor-pointer step" data-step="2">
+                Embark on the Journey of Calculus
+            </div>
+            <div class="w-20 h-2 bg-gray-500"></div>
+            <div class="px-3 py-2 bg-gray-500 rounded-lg text-xs text-white cursor-pointer step" data-step="3">
+                Master the Basics of Python
+            </div>
+        </div>
+
+        <!-- Second Row -->
+        <div class="flex justify-between items-center relative">
+            <div class="px-3 py-2 bg-gray-500 rounded-lg text-xs text-white cursor-pointer step" data-step="4">
+                Unlock the Secrets of GitHub
+            </div>
+            <div class="w-20 h-2 bg-gray-500"></div>
+            <div class="px-3 py-2 bg-gray-500 rounded-lg text-xs text-white cursor-pointer step" data-step="5">
+                Master the Art of Data Analysis
+            </div>
+            <div class="w-20 h-2 bg-gray-500"></div>
+            <div class="px-3 py-2 bg-gray-500 rounded-lg text-xs text-white cursor-pointer step" data-step="6">
+                Conquer the World of SQL
+            </div>
+        </div>
+        
+    </section>
+
+    <button id="editGoals" class="px-6 py-2 bg-gray-500 text-white rounded-lg text-xs">
+        Edit Goals
+    </button>
+
+    <!-- Progress Bar -->
+    <section class="w-full max-w-4xl bg-gray-300 p-6 rounded-lg">
+        <div class="w-32 h-4 bg-gray-500 mb-4 flex items-center justify-center text-xs text-gray-700">
+            Progress
+        </div>
+        <div class="bg-gray-400 h-2 w-full rounded-full relative">
+            <div class="bg-gray-500 h-2 w-1/6 rounded-full"></div>
+        </div>
+    </section>
+
+    <!-- Current Step Details -->
+    <section class="w-full max-w-4xl bg-gray-300 p-6 rounded-lg flex flex-col space-y-4">
+        <div class="w-58 h-4 bg-gray-500 flex items-center justify-center text-xs text-gray-700">
+            Current Step: Conquer the World of Linear Algebra
+        </div>
+        <div class="w-full h-12 bg-gray-400 flex items-center justify-center text-xs text-gray-700">
+            Linear algebra is the mathematical foundation of many machine learning algorithms. It covers topics like matrices, vectors, and eigenvalues, which are fundamental in deep learning and computer vision.
+        </div>
+
+        <!-- Finish Step Button (Redirects to Quiz.html) -->
+        <button id="finishStep" class="px-6 py-2 bg-gray-500 text-white rounded-lg text-xs self-center">
+            Finish Step
+        </button>
+    </section>
+
+    <!-- Navigation Buttons -->
+    <div class="flex space-x-4">
+        
+        <button id="goToLeaderboard" class="px-6 py-2 bg-gray-500 text-white rounded-lg text-xs">
+            View Leaderboard
+        </button>
+    </div>
+
+    <!-- Pop-up Modal (Hidden by Default) -->
+    <div id="stepModal" class="hidden fixed inset-0 bg-gray-700 bg-opacity-50 flex items-center justify-center">
+        <div class="w-[600px] bg-gray-300 p-8 rounded-lg shadow-lg flex flex-col space-y-6">
+            <div id="stepTitle" class="w-full h-6 bg-gray-500 flex items-center justify-center text-sm text-gray-700">
+                Step Title
+            </div>
+            <div id="stepDescription" class="w-full h-32 bg-gray-400 flex items-center justify-center text-sm text-gray-700">
+                Step Description
+            </div>
+            <button id="closeModal" class="px-8 py-3 bg-gray-500 text-white rounded-lg text-sm self-center">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Get elements
+        const steps = document.querySelectorAll(".step");
+        const modal = document.getElementById("stepModal");
+        const stepTitle = document.getElementById("stepTitle");
+        const stepDescription = document.getElementById("stepDescription");
+        const closeModal = document.getElementById("closeModal");
+
+        // Step descriptions
+        const stepDetails = {
+            1: { title: "📌 Conquer the World of Linear Algebra (2 Months)", description: "Linear algebra is the mathematical foundation of many machine learning algorithms. It covers topics like matrices, vectors, and eigenvalues, which are fundamental in deep learning and computer vision." },
+            2: { title: "📌 Embark on the Journey of Calculus (2 Months)", description: "Calculus is important in understanding optimization, which is the core of training machine learning models. This step covers derivatives, gradients, and integrals." },
+            3: { title: "📌 Master the Basics of Python (3 Months)", description: "Python is the most widely used language in machine learning. You'll learn variables, loops, and functions, which are essential for working with ML libraries." },
+            4: { title: "📌 Unlock the Secrets of GitHub (1 Month)", description: "GitHub is essential for version control and collaboration. Learn to manage projects, collaborate with others, and track your work efficiently." },
+            5: { title: "📌 Master the Art of Data Analysis (3 Months)", description: "Data analysis involves handling and processing data, exploring datasets, and making sense of them. This is crucial for feature engineering in machine learning." },
+            6: { title: "📌 Conquer the World of SQL (1 Month)", description: "SQL is essential for managing and querying databases. You’ll learn to extract and manipulate data needed for ML models." }
+        };
+
+        steps.forEach(step => {
+            step.addEventListener("click", () => {
+                const stepNumber = step.getAttribute("data-step");
+                stepTitle.textContent = stepDetails[stepNumber].title;
+                stepDescription.textContent = stepDetails[stepNumber].description;
+                modal.classList.remove("hidden");
+            });
+        });
+
+        closeModal.addEventListener("click", () => {
+            modal.classList.add("hidden");
+        });
+
+        document.getElementById("finishStep").addEventListener("click", () => { window.location.href = "Quiz.html"; });
+        document.getElementById("editGoals").addEventListener("click", () => { window.location.href = "Chatbot.html"; });
+        document.getElementById("goToLeaderboard").addEventListener("click", () => { window.location.href = "Leaderboard.html"; });
+    </script>
+
+</body>
+</html>

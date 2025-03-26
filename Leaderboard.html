@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Sapio AI - Leaderboard</title>
+</head>
+<body class="bg-gray-200 flex flex-col items-center justify-center h-screen p-6">
+
+    <!-- Leaderboard Container -->
+    <div class="w-full max-w-lg bg-gray-300 p-6 rounded-lg shadow-lg flex flex-col space-y-4">
+        
+        <!-- Leaderboard Title -->
+        <div class="w-full h-6 bg-gray-500 flex items-center justify-center text-xs text-gray-700">
+            🏆 ML Leaderboard 🏆
+        </div>
+
+        <!-- Leaderboard Table -->
+        <div class="bg-gray-400 p-4 rounded-lg w-full">
+            <table class="w-full text-xs text-gray-700">
+                <thead>
+                    <tr class="bg-gray-500 text-white">
+                        <th class="py-2">Rank</th>
+                        <th class="py-2">Name</th>
+                        <th class="py-2">XP</th>
+                        <th class="py-2">Streak 🔥</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="py-2 text-center">1</td>
+                        <td class="py-2 text-center">Umar Almadani</td>
+                        <td class="py-2 text-center">3200 XP</td>
+                        <td class="py-2 text-center">153 Days</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 text-center">2</td>
+                        <td class="py-2 text-center">Saad Alsaket</td>
+                        <td class="py-2 text-center">2800 XP</td>
+                        <td class="py-2 text-center">120 Days</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 text-center">3</td>
+                        <td class="py-2 text-center">You</td>
+                        <td class="py-2 text-center">2500 XP</td>
+                        <td class="py-2 text-center">70 Days</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 text-center">4</td>
+                        <td class="py-2 text-center">User A</td>
+                        <td class="py-2 text-center">2200 XP</td>
+                        <td class="py-2 text-center">40 Days</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 text-center">5</td>
+                        <td class="py-2 text-center">User B</td>
+                        <td class="py-2 text-center">1900 XP</td>
+                        <td class="py-2 text-center">43 Days</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Back to Dashboard Button -->
+    <button id="backToDashboard" class="px-6 py-2 bg-gray-500 text-white rounded-lg text-xs mt-4">
+        Back to Dashboard
+    </button>
+
+    <script>
+        // Redirect to Sapio Dashboard when clicking the button
+        document.getElementById("backToDashboard").addEventListener("click", function () {
+            window.location.href = "Sapio dashboard.html";
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Sapio AI - Chatbot</title>
+</head>
+<body class="bg-gray-200 flex flex-col items-center justify-center h-screen p-6">
+
+    <!-- Chatbot Container -->
+    <div class="w-full max-w-md bg-gray-300 p-6 rounded-lg shadow-lg flex flex-col space-y-4">
+        
+        <!-- Chat Title -->
+        <div class="w-full h-6 bg-gray-500 flex items-center justify-center text-xs text-gray-700">
+            Sapio AI Chatbot
+        </div>
+
+        <!-- Chat Messages -->
+        <div id="chatBox" class="w-full h-64 bg-gray-400 p-4 rounded-lg overflow-y-auto space-y-2 text-sm text-gray-700">
+            <div class="bg-gray-500 p-2 rounded-lg text-white w-max">
+                👋 Hello! tell me more about your Goals.
+            </div>
+        </div>
+
+        <!-- User Input -->
+        <div class="flex space-x-2">
+            <input id="userInput" type="text" class="flex-1 p-2 rounded-lg text-sm bg-white border border-gray-500" placeholder="Type a message...">
+            <button id="sendMessage" class="px-4 py-2 bg-gray-500 text-white rounded-lg text-xs">
+                Send
+            </button>
+        </div>
+    </div>
+
+    <!-- Back to Dashboard Button (Hidden Initially) -->
+    <button id="backToDashboard" class="px-6 py-2 bg-gray-500 text-white rounded-lg text-xs mt-4 ">
+        Generate Roadmap
+    </button>
+
+    <script>
+        const chatBox = document.getElementById("chatBox");
+        const userInput = document.getElementById("userInput");
+        const sendMessage = document.getElementById("sendMessage");
+        const backToDashboard = document.getElementById("backToDashboard");
+
+        let userMessageCount = 0;
+
+        // Function to add messages to the chat
+        function addMessage(sender, message) {
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("p-2", "rounded-lg", "w-max");
+            
+            if (sender === "bot") {
+                messageDiv.classList.add("bg-gray-500", "text-white", "self-start");
+            } else {
+                messageDiv.classList.add("bg-blue-500", "text-white", "self-end");
+            }
+
+            messageDiv.textContent = message;
+            chatBox.appendChild(messageDiv);
+
+            // Scroll to the bottom
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // Function to handle bot responses
+        function botResponse() {
+            const botMessages = [
+                "in which future position are you interested! Tell me more.",
+                "how are you in linear algebra?"
+            ];
+            
+            setTimeout(() => {
+                const randomResponse = botMessages[Math.floor(Math.random() * botMessages.length)];
+                addMessage("bot", randomResponse);
+            }, 1000);
+        }
+
+        // Function to handle sending a message
+        sendMessage.addEventListener("click", () => {
+            const userText = userInput.value.trim();
+            if (userText === "") return;
+
+            addMessage("user", userText);
+            userInput.value = "";
+
+            userMessageCount++;
+
+            // After 2 user messages, show "Back to Dashboard" button
+            if (userMessageCount >= 2) {
+                backToDashboard.classList.remove("hidden");
+            }
+
+            botResponse();
+        });
+
+        // Enter key support for sending messages
+        userInput.addEventListener("keypress", (event) => {
+            if (event.key === "Enter") {
+                sendMessage.click();
+            }
+        });
+
+        // Redirect to Sapio Dashboard
+        backToDashboard.addEventListener("click", () => {
+            window.location.href = "Sapio dashboard.html";
+        });
+    </script>
+
+</body>
+</html>
